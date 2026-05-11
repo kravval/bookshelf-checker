@@ -42,8 +42,19 @@ def get_google_books_api_key() -> str:
     return os.getenv("GOOGLE_BOOKS_API_KEY", "")
 
 
+def get_isbndb_api_key() -> str:
+    """Read ISBNdb API key from .env.
+
+    Returns empty string if not set. ISBNdb requires a key —
+    requests without it will fail with 401 Unauthorized.
+    """
+    load_dotenv()
+    return os.getenv("ISBNDB_API_KEY", "")
+
+
 if __name__ == "__main__":
     print(f"Books: {get_books_dir()}")
     print(f"Data:  {get_data_dir()}")
-    key = get_google_books_api_key()
-    print(f"API key: {'set (' + str(len(key)) + ' chars)' if key else 'NOT SET'}")
+
+    isbndb_key = get_isbndb_api_key()
+    print(f"ISBNdb key: {'set (' + str(len(isbndb_key)) + ' chars)' if isbndb_key else 'NOT SET'}")
